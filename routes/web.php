@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
