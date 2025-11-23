@@ -1,19 +1,17 @@
 <?php
-// routes/web.php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\InvoiceController;
 use Illuminate\Support\Facades\Route;
 
-// Landing page
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Dashboard routing based on role
 Route::get('/dashboard', function () {
     if (auth()->user()->role === 'merchant') {
         return redirect()->route('merchant.dashboard');
@@ -21,7 +19,6 @@ Route::get('/dashboard', function () {
     return redirect()->route('customer.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Authenticated user profile routes
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -55,5 +52,4 @@ Route::middleware(['auth'])->prefix('customer')->name('customer.')->group(functi
     Route::get('/orders/{order}', [CustomerController::class, 'orderDetail'])->name('orders.detail');
 });
 
-// Authentication routes (dari Laravel Breeze)
 require __DIR__.'/auth.php';

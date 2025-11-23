@@ -1,13 +1,13 @@
-<!-- resources/views/merchant/order-detail.blade.php -->
+<!-- resources/views/customer/orders/show.blade.php -->
 @extends('layouts.app')
 
-@section('title', 'Order Detail - FoodHub Merchant')
+@section('title', 'Order Detail - FoodHub')
 
 @section('content')
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <!-- Breadcrumb -->
     <div class="flex items-center gap-2 mb-8 text-sm text-slate-600">
-        <a href="{{ route('merchant.orders') }}" class="hover:text-slate-900">Orders</a>
+        <a href="{{ route('customer.orders') }}" class="hover:text-slate-900">My Orders</a>
         <span>/</span>
         <span class="text-slate-900 font-medium">Order #{{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}</span>
     </div>
@@ -19,9 +19,7 @@
             <div class="bg-white rounded-lg border border-slate-200 p-6">
                 <div class="flex items-start justify-between mb-6">
                     <div>
-                        <h1 class="text-3xl font-bold text-slate-900 mb-2">
-                            {{ $order->user->name }}
-                        </h1>
+                        <h1 class="text-3xl font-bold text-slate-900 mb-2">{{ $order->merchant->company_name }}</h1>
                         <p class="text-slate-600">Order #{{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}</p>
                     </div>
                     <span class="inline-block px-4 py-2 rounded-full text-sm font-semibold {{ 
@@ -43,25 +41,6 @@
                     <div>
                         <p class="text-sm text-slate-600 mb-1">Invoice Number</p>
                         <p class="font-bold text-slate-900">{{ $order->invoice->invoice_number }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Customer Info -->
-            <div class="bg-white rounded-lg border border-slate-200 p-6">
-                <h2 class="text-xl font-bold text-slate-900 mb-4">Customer Information</h2>
-                <div class="space-y-3">
-                    <div>
-                        <p class="text-sm text-slate-600 mb-1">Name</p>
-                        <p class="font-bold text-slate-900">{{ $order->user->name }}</p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-slate-600 mb-1">Email</p>
-                        <p class="font-bold text-slate-900">{{ $order->user->email }}</p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-slate-600 mb-1">Delivery Address</p>
-                        <p class="font-bold text-slate-900">{{ $order->delivery_address }}</p>
                     </div>
                 </div>
             </div>
@@ -89,6 +68,15 @@
                             </div>
                         </div>
                     @endforeach
+                </div>
+            </div>
+
+            <!-- Delivery Address -->
+            <div class="bg-white rounded-lg border border-slate-200 p-6">
+                <h2 class="text-xl font-bold text-slate-900 mb-4">Delivery Address</h2>
+                <div class="flex gap-3">
+                    <span class="text-2xl">📍</span>
+                    <p class="text-slate-600">{{ $order->delivery_address }}</p>
                 </div>
             </div>
         </div>
@@ -121,28 +109,16 @@
                     </span>
                 </div>
 
-                <!-- Actions -->
-                <div class="pt-6 border-t border-slate-200 space-y-3">
-                    @if($order->invoice->status === 'unpaid')
-                        <button class="w-full px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all font-medium text-sm">
-                            Mark as Paid
-                        </button>
-                    @endif
-                    <button class="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all font-medium text-sm">
-                        Print Invoice
-                    </button>
-                </div>
-
                 <!-- Status Timeline -->
                 <div class="pt-6 border-t border-slate-200">
-                    <h4 class="font-bold text-slate-900 mb-4">Timeline</h4>
+                    <h4 class="font-bold text-slate-900 mb-4">Status Timeline</h4>
                     <div class="space-y-3">
                         <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-sm flex-shrink-0">
                                 ✓
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-slate-900">Order Received</p>
+                                <p class="text-sm font-medium text-slate-900">Order Placed</p>
                                 <p class="text-xs text-slate-600">{{ $order->created_at->format('d M Y H:i') }}</p>
                             </div>
                         </div>
@@ -166,7 +142,7 @@
                                 ○
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-slate-900">Ready for Delivery</p>
+                                <p class="text-sm font-medium text-slate-900">Delivered</p>
                                 <p class="text-xs text-slate-600">{{ $order->delivery_date->format('d M Y') }}</p>
                             </div>
                         </div>
@@ -178,7 +154,7 @@
 
     <!-- Back Button -->
     <div class="mt-8">
-        <a href="{{ route('merchant.orders') }}" class="text-orange-500 hover:text-orange-600 font-medium flex items-center gap-2">
+        <a href="{{ route('customer.orders') }}" class="text-orange-500 hover:text-orange-600 font-medium flex items-center gap-2">
             <span>←</span>
             Back to Orders
         </a>

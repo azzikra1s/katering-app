@@ -1,3 +1,4 @@
+<!-- resources/views/customer/merchants.blade.php -->
 @extends('layouts.app')
 
 @section('title', 'Merchants - FoodHub')

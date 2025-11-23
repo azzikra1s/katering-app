@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('delivery_date')->nullable();
             $table->text('delivery_address')->nullable();
             $table->decimal('total', 12, 2)->default(0);
+            $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
             $table->timestamps();
         });
     }
