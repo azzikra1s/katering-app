@@ -15,6 +15,16 @@
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
+        
+        {{-- disini Rolenya --}}
+        <div>
+            <x-input-label for="role" :value="__('Register as')" />
+            <select id="role" name="role" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full" required>
+                <option value="customer" {{ old('role') == 'customer' ? 'selected' : '' }}>Customer (Kantor)</option>
+                <option value="merchant" {{ old('role') == 'merchant' ? 'selected' : '' }}>Merchant (Katering)</option>
+            </select>
+            <x-input-error :messages="$errors->get('role')" class="mt-2" />
+        </div>
 
         <!-- Password -->
         <div class="mt-4">

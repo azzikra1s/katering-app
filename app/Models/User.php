@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -45,4 +46,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function merchant()
+    {
+        return $this->hasOne(Merchant::class);
+    }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
 }
