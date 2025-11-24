@@ -1,4 +1,3 @@
-<!-- resources/views/merchant/profile.blade.php -->
 <x-app-layout>
     @section('title', 'Profil Katering - Marketplace Katering')
 

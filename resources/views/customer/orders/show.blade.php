@@ -1,4 +1,3 @@
-<!-- resources/views/customer/orders/show.blade.php -->
 <x-app-layout>
     @section('title', 'Detail Pesanan - Marketplace Katering')
 

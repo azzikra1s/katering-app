@@ -1,4 +1,3 @@
-<!-- resources/views/customer/merchants.blade.php -->
 <x-app-layout>
     @section('title', 'Cari Katering - Marketplace Katering')
 

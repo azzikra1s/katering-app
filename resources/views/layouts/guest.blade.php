@@ -43,15 +43,14 @@
                                     <span class="text-sm font-medium">{{ auth()->user()->name }}</span>
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd"
-                                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                              clip-rule="evenodd"></path>
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clip-rule="evenodd"></path>
                                     </svg>
                                 </button>
 
                                 <div x-show="open" x-transition
-                                     class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200">
-                                    <a href="{{ route('profile.edit') }}"
-                                       class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profil</a>
+                                    class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200">
+                                    <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profil</a>
 
                                     <form method="POST" action="{{ route('logout') }}" class="border-t">
                                         @csrf
@@ -64,8 +63,7 @@
                             </div>
                         @else
                             <a href="{{ route('login') }}" class="text-gray-700 hover:text-blue-600">Masuk</a>
-                            <a href="{{ route('register') }}"
-                               class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            <a href="{{ route('register') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                                 Daftar
                             </a>
                         @endauth
@@ -88,15 +86,14 @@
         @endif
 
         @if (session('success'))
-            <div class="max-w-7xl mx-auto px-4 py-4"
-                 x-data="{ show: true }" x-show="show" x-transition>
+            <div class="max-w-7xl mx-auto px-4 py-4" x-data="{ show: true }" x-show="show" x-transition>
                 <div class="rounded-lg bg-green-50 border border-green-200 p-4 flex justify-between">
                     <p class="text-sm text-green-800 font-medium">{{ session('success') }}</p>
                     <button @click="show = false" class="text-green-600 hover:text-green-700">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
-                                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                  clip-rule="evenodd"></path>
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
                         </svg>
                     </button>
                 </div>

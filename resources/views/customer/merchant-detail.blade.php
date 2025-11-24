@@ -1,4 +1,3 @@
-<!-- resources/views/customer/merchant-detail.blade.php -->
 <x-app-layout>
     @section('title', $merchant->company_name . ' - Marketplace Katering')
 

@@ -1,4 +1,3 @@
-<!-- resources/views/customer/dashboard.blade.php -->
 <x-app-layout>
     @section('title', 'Dasbor Kantor - Marketplace Katering')
 

@@ -1,4 +1,3 @@
-<!-- resources/views/merchant/orders.blade.php -->
 <x-app-layout>
     @section('title', 'Pesanan Masuk - Marketplace Katering')
 

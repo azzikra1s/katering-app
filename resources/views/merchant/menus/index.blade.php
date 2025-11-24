@@ -1,4 +1,3 @@
-<!-- resources/views/merchant/menus/index.blade.php -->
 <x-app-layout>
     @section('title', 'Kelola Menu - Marketplace Katering')
 

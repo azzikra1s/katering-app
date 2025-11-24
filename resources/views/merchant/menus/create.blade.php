@@ -1,4 +1,3 @@
-<!-- resources/views/merchant/menus/create.blade.php -->
 <x-app-layout>
     @section('title', 'Tambah Menu - Marketplace Katering')
 

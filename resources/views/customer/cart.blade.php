@@ -1,4 +1,3 @@
-<!-- resources/views/customer/cart.blade.php -->
 <x-app-layout>
     @section('title', 'Keranjang Pesanan - Marketplace Katering')
 

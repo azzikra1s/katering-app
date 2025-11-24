@@ -1,4 +1,3 @@
-<!-- resources/views/merchant/dashboard.blade.php -->
 <x-app-layout>
     @section('title', 'Dasbor Katering - Marketplace Katering')
 
