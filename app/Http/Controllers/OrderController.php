@@ -6,6 +6,7 @@ use App\Models\Menu;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Invoice;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -133,5 +134,19 @@ class OrderController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to place order: ' . $e->getMessage());
         }
+    }
+
+    public function downloadInvoice(Order $order)
+    {
+        $order->load([
+            'invoice',
+            'merchant',
+            'orderItems.menu',
+        ]);
+
+        $pdf = Pdf::loadView('customer.orders.invoice-pdf', compact('order'))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->download('Invoice-'.$order->invoice->invoice_number.'.pdf');
     }
 }

@@ -1,135 +1,76 @@
 <!-- resources/views/merchant/dashboard.blade.php -->
-@extends('layouts.app')
+<x-app-layout>
+    @section('title', 'Dasbor Katering - Marketplace Katering')
 
-@section('title', 'Dashboard - FoodHub Merchant')
+    <div class="space-y-8">
+        <!-- Header -->
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900">Dasbor Katering</h1>
+            <p class="text-gray-600 mt-1">Kelola bisnis katering Anda</p>
+        </div>
 
-@section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <!-- Header -->
-    <div class="mb-12">
-        <h1 class="text-4xl font-bold text-slate-900 mb-2">Welcome, {{ $merchant->company_name }}!</h1>
-        <p class="text-lg text-slate-600">Manage your restaurant and orders efficiently</p>
-    </div>
-
-    <!-- Stats Cards -->
-    <div class="grid md:grid-cols-4 gap-6 mb-12">
-        <div class="bg-white rounded-lg border border-slate-200 p-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm font-medium text-slate-600 mb-1">Total Orders</p>
-                    <p class="text-3xl font-bold text-slate-900">{{ $totalOrders }}</p>
-                </div>
-                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-xl">
-                    📦
-                </div>
+        <!-- Stats -->
+        <div class="grid md:grid-cols-4 gap-4">
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+                <p class="text-gray-600 text-sm font-medium">Total Pesanan</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">{{ $totalOrders }}</p>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+                <p class="text-gray-600 text-sm font-medium">Total Pendapatan</p>
+                <p class="text-3xl font-bold text-blue-600 mt-2">Rp {{ number_format($totalRevenue, 0, ',', '.') }}</p>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+                <p class="text-gray-600 text-sm font-medium">Menu Aktif</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">{{ $totalMenus }}</p>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+                <p class="text-gray-600 text-sm font-medium">Rata-rata Pesanan</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">Rp {{ $totalOrders > 0 ? number_format($totalRevenue / $totalOrders, 0, ',', '.') : 0 }}</p>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg border border-slate-200 p-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm font-medium text-slate-600 mb-1">Total Revenue</p>
-                    <p class="text-3xl font-bold text-slate-900">
-                        Rp {{ number_format($totalRevenue, 0, ',', '.') }}
-                    </p>
-                </div>
-                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-xl">
-                    💰
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-lg border border-slate-200 p-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm font-medium text-slate-600 mb-1">Menu Items</p>
-                    <p class="text-3xl font-bold text-slate-900">{{ $totalMenus }}</p>
-                </div>
-                <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center text-xl">
-                    🍽️
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-lg border border-slate-200 p-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm font-medium text-slate-600 mb-1">Avg Order Value</p>
-                    <p class="text-3xl font-bold text-slate-900">
-                        Rp {{ $totalOrders > 0 ? number_format($totalRevenue / $totalOrders, 0, ',', '.') : 0 }}
-                    </p>
-                </div>
-                <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-xl">
-                    📊
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Quick Actions -->
-    <div class="mb-12">
-        <h2 class="text-2xl font-bold text-slate-900 mb-6">Quick Actions</h2>
-        <div class="grid md:grid-cols-3 gap-6">
-            <a href="{{ route('merchant.menus.create') }}" class="bg-white rounded-lg border border-slate-200 hover:border-orange-300 hover:shadow-lg transition-all p-8 group">
-                <div class="flex items-start justify-between mb-4">
-                    <div class="text-4xl group-hover:scale-110 transition-transform">➕</div>
-                    <svg class="w-5 h-5 text-orange-500 opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                    </svg>
-                </div>
-                <h3 class="text-lg font-bold text-slate-900 mb-2">Add New Menu</h3>
-                <p class="text-slate-600">Create and add new dishes to your menu</p>
+        <!-- Quick Actions -->
+        <div class="grid md:grid-cols-3 gap-4">
+            <a href="{{ route('merchant.menus.create') }}" class="bg-blue-600 text-white rounded-lg p-6 hover:bg-blue-700 transition-colors">
+                <div class="text-2xl mb-2">➕</div>
+                <h3 class="font-bold">Tambah Menu</h3>
+                <p class="text-blue-100 text-sm mt-1">Tambahkan menu baru</p>
             </a>
-
-            <a href="{{ route('merchant.menus.index') }}" class="bg-white rounded-lg border border-slate-200 hover:border-orange-300 hover:shadow-lg transition-all p-8 group">
-                <div class="flex items-start justify-between mb-4">
-                    <div class="text-4xl group-hover:scale-110 transition-transform">🍽️</div>
-                    <svg class="w-5 h-5 text-orange-500 opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                    </svg>
-                </div>
-                <h3 class="text-lg font-bold text-slate-900 mb-2">Manage Menu</h3>
-                <p class="text-slate-600">Edit and manage your menu items</p>
+            <a href="{{ route('merchant.menus.index') }}" class="bg-green-600 text-white rounded-lg p-6 hover:bg-green-700 transition-colors">
+                <div class="text-2xl mb-2">📋</div>
+                <h3 class="font-bold">Kelola Menu</h3>
+                <p class="text-green-100 text-sm mt-1">Kelola menu Anda</p>
             </a>
-
-            <a href="{{ route('merchant.orders') }}" class="bg-white rounded-lg border border-slate-200 hover:border-orange-300 hover:shadow-lg transition-all p-8 group">
-                <div class="flex items-start justify-between mb-4">
-                    <div class="text-4xl group-hover:scale-110 transition-transform">📦</div>
-                    <svg class="w-5 h-5 text-orange-500 opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                    </svg>
-                </div>
-                <h3 class="text-lg font-bold text-slate-900 mb-2">View Orders</h3>
-                <p class="text-slate-600">Check incoming orders and manage them</p>
+            <a href="{{ route('merchant.orders') }}" class="bg-purple-600 text-white rounded-lg p-6 hover:bg-purple-700 transition-colors">
+                <div class="text-2xl mb-2">📦</div>
+                <h3 class="font-bold">Pesanan Masuk</h3>
+                <p class="text-purple-100 text-sm mt-1">Lihat pesanan baru</p>
             </a>
         </div>
-    </div>
 
-    <!-- Merchant Info -->
-    <div class="bg-white rounded-lg border border-slate-200 p-8">
-        <div class="flex items-start justify-between mb-6">
-            <h2 class="text-2xl font-bold text-slate-900">Restaurant Information</h2>
-            <a href="{{ route('merchant.profile') }}" class="text-orange-500 hover:text-orange-600 font-medium">Edit</a>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-6">
-            <div>
-                <p class="text-sm text-slate-600 mb-1">Company Name</p>
-                <p class="font-bold text-slate-900">{{ $merchant->company_name }}</p>
-            </div>
-            <div>
-                <p class="text-sm text-slate-600 mb-1">Phone Number</p>
-                <p class="font-bold text-slate-900">{{ $merchant->phone_number ?? 'Not set' }}</p>
-            </div>
-            <div class="md:col-span-2">
-                <p class="text-sm text-slate-600 mb-1">Address</p>
-                <p class="font-bold text-slate-900">{{ $merchant->address ?? 'Not set' }}</p>
-            </div>
-            <div class="md:col-span-2">
-                <p class="text-sm text-slate-600 mb-1">Description</p>
-                <p class="font-bold text-slate-900">{{ $merchant->description ?? 'Not set' }}</p>
-            </div>
+        <!-- Recent Orders -->
+        <div class="bg-white border border-gray-200 rounded-lg p-6">
+            <h2 class="text-lg font-bold text-gray-900 mb-4">Pesanan Terbaru</h2>
+            @if(collect($orders)->count() > 0)
+                <div class="space-y-3">
+                    @foreach(collect($orders)->take(5) as $order)
+                        <a href="{{ route('merchant.orders.detail', $order) }}" class="flex justify-between items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                            <div>
+                                <p class="font-medium text-gray-900">{{ $order->user->name }}</p>
+                                <p class="text-sm text-gray-600">{{ $order->delivery_date->format('d M Y') }}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold text-gray-900">Rp {{ number_format($order->total, 0, ',', '.') }}</p>
+                                <span class="inline-block px-2 py-1 rounded text-xs font-medium {{ $order->invoice->status === 'paid' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
+                                    {{ $order->invoice->status === 'paid' ? 'Lunas' : 'Pending' }}
+                                </span>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            @else
+                <p class="text-gray-600 text-center py-8">Belum ada pesanan</p>
+            @endif
         </div>
     </div>
-</div>
-@endsection
+</x-app-layout>

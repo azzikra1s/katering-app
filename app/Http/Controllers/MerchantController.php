@@ -19,9 +19,23 @@ class MerchantController extends Controller
         $totalOrders = Order::where('merchant_id', $merchant->id)->count();
         $totalRevenue = Order::where('merchant_id', $merchant->id)->sum('total');
         $totalMenus = $merchant->menus()->count();
-        
-        return view('merchant.dashboard', compact('merchant', 'totalOrders', 'totalRevenue', 'totalMenus'));
+
+        // Ambil 5 order terbaru untuk dashboard
+        $orders = Order::where('merchant_id', $merchant->id)
+            ->with(['user', 'invoice'])
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('merchant.dashboard', compact(
+            'merchant',
+            'totalOrders',
+            'totalRevenue',
+            'totalMenus',
+            'orders' // kirim ke view
+        ));
     }
+
     
     public function profile()
     {

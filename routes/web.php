@@ -53,7 +53,9 @@ Route::middleware(['auth'])->prefix('customer')->name('customer.')->group(functi
     
     Route::get('/orders', [CustomerController::class, 'orders'])->name('orders');
     Route::get('/orders/{order}', [CustomerController::class, 'orderDetail'])->name('orders.detail');
+
+    Route::get('/orders/{order}/invoice/pdf', [OrderController::class, 'downloadInvoice'])
+        ->name('orders.invoice.pdf');
 });
 
-// Authentication routes (dari Laravel Breeze)
 require __DIR__.'/auth.php';

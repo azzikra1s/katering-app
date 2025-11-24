@@ -1,62 +1,93 @@
+<!-- resources/views/auth/register.blade.php -->
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+    @section('title', 'Daftar - Marketplace Katering')
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+    <div class="min-h-screen flex items-center justify-center bg-gray-50">
+        <div class="max-w-md w-full bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+            <h2 class="text-2xl font-bold text-center mb-2">Daftar Akun Baru</h2>
+            <p class="text-center text-gray-600 text-sm mb-8">Bergabunglah dengan Marketplace Katering</p>
+
+            <form action="{{ route('register') }}" method="POST" class="space-y-6">
+                @csrf
+
+                <div x-data="{ role: '{{ old('role', 'kantor') }}' }" class="space-y-4">
+                    <div class="text-sm font-medium text-gray-700 mb-3">Daftar sebagai:</div>
+                    
+                    <label class="flex items-center p-3 border-2 rounded-lg cursor-pointer transition" 
+                        :class="role === 'kantor' ? 'border-blue-600 bg-blue-50' : 'border-gray-200'">
+                        <input type="radio" name="role" value="kantor" x-model="role" required
+                            class="w-4 h-4 text-blue-600">
+                        <span class="ml-3">
+                            <span class="font-medium text-gray-900">🏢 Kantor</span>
+                            <p class="text-gray-600 text-xs">Pesan katering untuk karyawan</p>
+                        </span>
+                    </label>
+
+                    <label class="flex items-center p-3 border-2 rounded-lg cursor-pointer transition" 
+                        :class="role === 'katering' ? 'border-blue-600 bg-blue-50' : 'border-gray-200'">
+                        <input type="radio" name="role" value="katering" x-model="role" required
+                            class="w-4 h-4 text-blue-600">
+                        <span class="ml-3">
+                            <span class="font-medium text-gray-900">🍽️ Katering</span>
+                            <p class="text-gray-600 text-xs">Jual paket katering Anda</p>
+                        </span>
+                    </label>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap / Perusahaan</label>
+                    <input type="text" name="name" value="{{ old('name') }}" required
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 @error('name') border-red-500 @enderror"
+                        placeholder="PT. Nama Perusahaan">
+                    @error('name')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                    <input type="email" name="email" value="{{ old('email') }}" required
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 @error('email') border-red-500 @enderror"
+                        placeholder="email@perusahaan.com">
+                    @error('email')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                    <input type="password" name="password" required
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 @error('password') border-red-500 @enderror"
+                        placeholder="Minimal 8 karakter">
+                    @error('password')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Konfirmasi Password</label>
+                    <input type="password" name="password_confirmation" required
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Ulangi password">
+                </div>
+
+                <div class="flex items-start">
+                    <input type="checkbox" name="agree" id="agree" required
+                        class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 border-gray-300 mt-1">
+                    <label for="agree" class="ml-2 text-sm text-gray-700">
+                        Saya setuju dengan <a href="#" class="text-blue-600 hover:text-blue-700">Syarat & Ketentuan</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 text-white font-medium py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    Daftar Sekarang
+                </button>
+            </form>
+
+            <p class="text-center text-sm text-gray-600 mt-6">
+                Sudah punya akun? 
+                <a href="{{ route('login') }}" class="text-blue-600 hover:text-blue-700 font-medium">Masuk sekarang</a>
+            </p>
         </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-        
-        {{-- disini Rolenya --}}
-        <div>
-            <x-input-label for="role" :value="__('Register as')" />
-            <select id="role" name="role" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full" required>
-                <option value="customer" {{ old('role') == 'customer' ? 'selected' : '' }}>Customer (Kantor)</option>
-                <option value="merchant" {{ old('role') == 'merchant' ? 'selected' : '' }}>Merchant (Katering)</option>
-            </select>
-            <x-input-error :messages="$errors->get('role')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
+    </div>
 </x-guest-layout>
